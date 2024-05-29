@@ -19,15 +19,16 @@
 #endif
 
 YY_EXTERN_C_BEGIN
+NS_ASSUME_NONNULL_BEGIN
 
 /// Create an `ARGB` Bitmap context. Returns NULL if an error occurs.
 ///
 /// @discussion The function is same as UIGraphicsBeginImageContextWithOptions(),
 /// but it doesn't push the context to UIGraphic, so you can retain the context for reuse.
-CGContextRef YYCGContextCreateARGBBitmapContext(CGSize size, BOOL opaque, CGFloat scale);
+CGContextRef _Nullable YYCGContextCreateARGBBitmapContext(CGSize size, BOOL opaque, CGFloat scale);
 
 /// Create a `DeviceGray` Bitmap context. Returns NULL if an error occurs.
-CGContextRef YYCGContextCreateGrayBitmapContext(CGSize size, CGFloat scale);
+CGContextRef _Nullable YYCGContextCreateGrayBitmapContext(CGSize size, CGFloat scale);
 
 
 
@@ -86,7 +87,7 @@ static inline CGFloat CGAffineTransformGetTranslateY(CGAffineTransform transform
  
  @see http://stackoverflow.com/questions/13291796/calculate-values-for-a-cgaffinetransform-from-three-points-in-each-of-two-uiview
  */
-CGAffineTransform YYCGAffineTransformGetFromPoints(CGPoint before[3], CGPoint after[3]);
+CGAffineTransform YYCGAffineTransformGetFromPoints(CGPoint before[_Nonnull 3], CGPoint after[_Nonnull 3]);
 
 /// Get the transform which can converts a point from the coordinate system of a given view to another.
 CGAffineTransform YYCGAffineTransformGetFromViews(UIView *from, UIView *to);
@@ -113,12 +114,12 @@ NSString *YYUIViewContentModeToCAGravity(UIViewContentMode contentMode);
 
 
 /**
- Resize rect to fit the size using a given contentMode.
+ Returns a rectangle to fit the `rect` with specified content mode.
  
- @param rect The draw rect
+ @param rect The constrant rect
  @param size The content size
  @param mode The content mode
- @return A resized rect for the given content mode.
+ @return A rectangle for the given content mode.
  @discussion UIViewContentModeRedraw is same as UIViewContentModeScaleToFill.
  */
 CGRect YYCGRectFitWithContentMode(CGRect rect, CGSize size, UIViewContentMode mode);
@@ -333,4 +334,5 @@ static inline UIEdgeInsets UIEdgeInsetPixelCeil(UIEdgeInsets insets) {
 #define kScreenHeight YYScreenSize().height
 #endif
 
+NS_ASSUME_NONNULL_END
 YY_EXTERN_C_END

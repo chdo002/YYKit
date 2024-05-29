@@ -19,6 +19,7 @@
 #endif
 
 YY_EXTERN_C_BEGIN
+NS_ASSUME_NONNULL_BEGIN
 
 /**
  Whether the character is 'line break char':
@@ -53,7 +54,7 @@ static inline BOOL YYTextIsLinebreakChar(unichar c) {
  @param str A string
  @return YES or NO.
  */
-static inline BOOL YYTextIsLinebreakString(NSString *str) {
+static inline BOOL YYTextIsLinebreakString(NSString * _Nullable str) {
     if (str.length > 2 || str.length == 0) return NO;
     if (str.length == 1) {
         unichar c = [str characterAtIndex:0];
@@ -69,7 +70,7 @@ static inline BOOL YYTextIsLinebreakString(NSString *str) {
  @param str  A string.
  @return The length of the tail line break: 0, 1 or 2.
  */
-static inline NSUInteger YYTextLinebreakTailLength(NSString *str) {
+static inline NSUInteger YYTextLinebreakTailLength(NSString * _Nullable str) {
     if (str.length >= 2) {
         unichar c2 = [str characterAtIndex:str.length - 1];
         if (YYTextIsLinebreakChar(c2)) {
@@ -230,7 +231,7 @@ static inline CGRect YYEmojiGetGlyphBoundingRectWithFontSize(CGFloat fontSize) {
  @param char32 Input: a UTF-32 character (equal or larger than 0x10000, not in BMP)
  @param char16 Output: two UTF-16 characters.
  */
-static inline void UTF32CharToUTF16SurrogatePair(UTF32Char char32, UTF16Char char16[2]) {
+static inline void UTF32CharToUTF16SurrogatePair(UTF32Char char32, UTF16Char char16[_Nonnull 2]) {
     char32 -= 0x10000;
     char16[0] = (char32 >> 10) + 0xD800;
     char16[1] = (char32 & 0x3FF) + 0xDC00;
@@ -242,7 +243,7 @@ static inline void UTF32CharToUTF16SurrogatePair(UTF32Char char32, UTF16Char cha
  @param char16 Two UTF-16 characters.
  @return A single UTF-32 character.
  */
-static inline UTF32Char UTF16SurrogatePairToUTF32Char(UTF16Char char16[2]) {
+static inline UTF32Char UTF16SurrogatePairToUTF32Char(UTF16Char char16[_Nonnull 2]) {
     return ((char16[0] - 0xD800) << 10) + (char16[1] - 0xDC00) + 0x10000;
 }
 
@@ -258,4 +259,5 @@ NSCharacterSet *YYTextVerticalFormRotateCharacterSet();
  */
 NSCharacterSet *YYTextVerticalFormRotateAndMoveCharacterSet();
 
+NS_ASSUME_NONNULL_END
 YY_EXTERN_C_END

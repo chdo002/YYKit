@@ -21,6 +21,8 @@
 #import "YYTextAttribute.h"
 #endif
 
+NS_ASSUME_NONNULL_BEGIN
+
 #if !TARGET_INTERFACE_BUILDER
 
 /**
@@ -88,7 +90,7 @@
 @property (nonatomic) CGFloat shadowBlurRadius;
 
 /**
- The technique to use for aligning the text. Default is NSLeftTextAlignment.
+ The technique to use for aligning the text. Default is NSTextAlignmentNatural.
  Set a new value to this property also causes the new alignment to be applied to the entire `attributedText`.
  Get the value returns the alignment at the head of `attributedText`.
  */
@@ -158,7 +160,7 @@
  An array of UIBezierPath objects representing the exclusion paths inside the
  receiver's bounding rectangle. Default value is nil.
  */
-@property (nullable, nonatomic, copy) NSArray *exclusionPaths;
+@property (nullable, nonatomic, copy) NSArray<UIBezierPath *> *exclusionPaths;
 
 /**
  The inset of the text container's layout area within the text view's content area.
@@ -207,6 +209,18 @@
 ///=============================================================================
 /// @name Interacting with Text Data
 ///=============================================================================
+
+/**
+ When user tap the label, this action will be called (similar to tap gesture).
+ The default value is nil.
+ */
+@property (nullable, nonatomic, copy) YYTextAction textTapAction;
+
+/**
+ When user long press the label, this action will be called (similar to long press gesture).
+ The default value is nil.
+ */
+@property (nullable, nonatomic, copy) YYTextAction textLongPressAction;
 
 /**
  When user tap the highlight range of text, this action will be called.
@@ -347,10 +361,12 @@ IB_DESIGNABLE
 @property (nullable, nonatomic, strong) id<YYTextParser> textParser;
 @property (nullable, nonatomic, strong) YYTextLayout *textLayout;
 @property (nullable, nonatomic, copy) UIBezierPath *textContainerPath;
-@property (nullable, nonatomic, copy) NSArray *exclusionPaths;
+@property (nullable, nonatomic, copy) NSArray<UIBezierPath *> *exclusionPaths;
 @property (nonatomic) UIEdgeInsets textContainerInset;
 @property (nullable, nonatomic, copy) id<YYTextLinePositionModifier> linePositionModifier;
 @property (nonnull, nonatomic, copy) YYTextDebugOption *debugOption;
+@property (nullable, nonatomic, copy) YYTextAction textTapAction;
+@property (nullable, nonatomic, copy) YYTextAction textLongPressAction;
 @property (nullable, nonatomic, copy) YYTextAction highlightTapAction;
 @property (nullable, nonatomic, copy) YYTextAction highlightLongPressAction;
 @property (nonatomic) BOOL displaysAsynchronously;
@@ -360,3 +376,5 @@ IB_DESIGNABLE
 @property (nonatomic) BOOL ignoreCommonProperties;
 @end
 #endif // !TARGET_INTERFACE_BUILDER
+
+NS_ASSUME_NONNULL_END
